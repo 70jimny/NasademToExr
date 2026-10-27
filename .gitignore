@@ -426,3 +426,9 @@ FodyWeavers.xsd
 
 # Official VS Code C# Dev Kit Extension exclusion
 #*.lscache
+
+# 地形の入力・出力データはGit管理しない。
+*.[hH][gG][tT]
+*.[nN][uU][mM]
+*.[sS][wW][bB]
+*.[eE][xX][rR]
