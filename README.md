@@ -4,7 +4,7 @@
 
 NasademToExrは、NASA Earthdataの標高データ **NASADEM_HGT.001** を、Godotの **Terrain3D v1.1.0-rc1** で利用するためのOpenEXR（`.exr`）形式に変換する、Windows向けのC#コマンドラインツールです。Godotとは独立して動作します。
 
-フォルダ内の同名タイルの `.hgt`・`.num`・`.swb` を入力とし、`.hgt` の標高を使用して、同じフォルダに `.exr` ファイルを生成します。出力は1タイル全体の地形で、標高はメートル単位の値を保持したRGB・32bit浮動小数点形式です。水平解像度は約30m間隔に調整します。
+フォルダ内の同名タイルの `.hgt`・`.num`・`.swb` を入力とし、必要に応じて隣接タイルを結合して、同じフォルダに `.exr` ファイルを生成します。標高はメートル単位の値を保持したRGB・32bit浮動小数点形式です。地理座標をUTMに投影し、水平解像度を30m間隔に揃えます。投影後の矩形EXRでは、指定範囲の端部が一部除外される場合があります。
 
 ## 使い方
 
@@ -34,6 +34,12 @@ dotnet build -c Release
 
 ```powershell
 & "D:\source\02_Windows\NasademToExr\bin\Release\net10.0\NasademToExr.exe" "D:\TerrainData\Iki"
+```
+
+対象範囲を緯度経度で切り出す場合は、`--bounds` に **南端,西端,北端,東端** の順で指定します（10進度数）。省略した場合は入力タイルの範囲を対象にします。
+
+```powershell
+& "D:\source\02_Windows\NasademToExr\bin\Release\net10.0\NasademToExr.exe" "D:\TerrainData\Iki" --bounds "33.1,129.2,33.8,129.9"
 ```
 
 出力先：
